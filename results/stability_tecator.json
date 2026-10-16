@@ -1,0 +1,115 @@
+{
+  "fold_repeatability_jaccard": {
+    "discrete8": 0.814421768707483,
+    "vip8": 1.0
+  },
+  "discrete8_freq_top": [
+    {
+      "band": 85,
+      "f": 1.0
+    },
+    {
+      "band": 40,
+      "f": 1.0
+    },
+    {
+      "band": 30,
+      "f": 1.0
+    },
+    {
+      "band": 95,
+      "f": 1.0
+    },
+    {
+      "band": 3,
+      "f": 0.96
+    },
+    {
+      "band": 13,
+      "f": 0.96
+    },
+    {
+      "band": 58,
+      "f": 0.74
+    },
+    {
+      "band": 68,
+      "f": 0.74
+    },
+    {
+      "band": 67,
+      "f": 0.26
+    },
+    {
+      "band": 57,
+      "f": 0.26
+    }
+  ],
+  "lasso_diagnostic": {
+    "note": "LASSO-BIC selects ~80 of 100 bands on subsamples; not viable as a selector on n=240 collinear spectra.",
+    "top_freq": [
+      {
+        "band": 99,
+        "f": 0.94
+      },
+      {
+        "band": 94,
+        "f": 0.78
+      },
+      {
+        "band": 0,
+        "f": 0.77
+      },
+      {
+        "band": 55,
+        "f": 0.67
+      },
+      {
+        "band": 25,
+        "f": 0.59
+      },
+      {
+        "band": 80,
+        "f": 0.57
+      },
+      {
+        "band": 49,
+        "f": 0.56
+      },
+      {
+        "band": 52,
+        "f": 0.52
+      },
+      {
+        "band": 91,
+        "f": 0.51
+      },
+      {
+        "band": 23,
+        "f": 0.51
+      }
+    ]
+  },
+  "acc_cars5": {
+    "model": "pls",
+    "task": "regression",
+    "n_splits": 5,
+    "n_repeats": 5,
+    "random_state": 42,
+    "metric": "rmse",
+    "fold_scores_mean": 2.1414821671390554,
+    "fold_scores_std": 0.3345286400168291,
+    "pooled_r2": 0.9771307148400167
+  },
+  "acc_full": {
+    "model": "pls",
+    "task": "regression",
+    "n_splits": 5,
+    "n_repeats": 5,
+    "random_state": 42,
+    "metric": "rmse",
+    "fold_scores_mean": 2.2050671164515507,
+    "fold_scores_std": 0.3547632893624913,
+    "pooled_r2": 0.9757174161895723
+  }
+}

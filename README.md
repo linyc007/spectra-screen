@@ -51,9 +51,10 @@ make benchmarks
 
 | Method | Type | Origin |
 |---|---|---|
-| Discrete screening | filter, band-level, enforced min wavelength separation | seed method from Lin et al., WHISPERS 2019 (simplified univariate version) |
+| Discrete screening | filter, band-level, enforced min wavelength separation; criteria: correlation / ANOVA / mutual information | seed method from Lin et al., WHISPERS 2019 (simplified univariate version) |
 | CARS | iterative competitive adaptive reweighted sampling | Li et al., Chemom. Intell. Lab. Syst. 2009 (seeded deterministic variant) |
 | VIP-PLS | embedded, variable-level | classic chemometrics (Wold et al.) |
+| Stability analysis | LASSO-BIC stability selection + fold-repeatability (Jaccard) + consensus band sets | Meinshausen & Bühlmann 2010; `src/spectra_screen/stability.py` |
 
 Preprocessing: SNV + Savitzky-Golay (window 11, order 2) for NIR spectra;
 per-fold standardization (train-fold fit, no leakage) for hyperspectral
@@ -148,6 +149,22 @@ ships in [`hpc/sbatch_tabpfn.sh`](hpc/sbatch_tabpfn.sh) — set your partition a
 Python interpreter, then `sbatch` it. First-use model weights live in
 `~/.cache/tabpfn/` and can be copied between machines to keep inference offline.
 
+## Band-stability analysis (the deployability question)
+
+Which bands survive re-running the selection on different training folds?
+Full sample deliverable: [`reports/band_stability_sample_report.md`](reports/band_stability_sample_report.md).
+Regenerate: `make stability` (KSC forestry scene + Tecator).
+
+- KSC (13 vegetation classes, k=15): spaced discrete selection reaches
+  **0.808 ± 0.012** accuracy with fold-Jaccard 0.600, while the perfectly
+  repeatable (Jaccard = 1.000) naive ANOVA top-15 only reaches 0.643 —
+  **selection invariance ≠ selection quality**.
+- Consensus cores: 5/15 KSC bands and 4/8 Tecator bands are chosen in every
+  single fold (frequency 1.00) — a hardened "instrument band set" for a
+  filter-camera spec, with fringe positions tunable.
+- LASSO-BIC diagnostic: on n=240 collinear spectra BIC retains ~80/100 bands;
+  a trap for teams applying sklearn defaults blindly.
+
 ## Provenance & related work
 
 - Y. Lin et al., *Discrete wavelengths screening method for the near-infrared
@@ -158,14 +175,16 @@ Python interpreter, then `sbatch` it. First-use model weights live in
 
 ## Scope & roadmap
 
-Currently two datasets (Tecator regression, Indian Pines classification) plus a
-TabPFN foundation-model comparison on Tecator. Planned next:
+Currently three datasets (Tecator regression; Indian Pines crop classification;
+Kennedy Space Center forestry/vegetation classification) plus TabPFN and
+band-stability analyses on Tecator. Planned next:
 
 - [x] Indian Pines hyperspectral classification (SVM-RBF, RF)
 - [x] TabPFN comparison (v3, CPU-only — see above, `make tabpfn`)
-- [ ] PaviaU (urban classification) as a third scene
-- [ ] Stability selection (LASSO) and mutual-information screening
-- [ ] Band-stability analysis across CV folds (how reproducible is a selected band?)
+- [x] Stability selection (LASSO-BIC diagnostic) and mutual-information screening
+- [x] Band-stability analysis across CV folds (Jaccard, consensus sets; `make stability`)
+- [ ] PaviaU (urban classification) — deprioritized in favor of application-matched scenes
+- [ ] Industry-matched NIR datasets (wood grading, coffee, textiles)
 
 ## Work with me
 

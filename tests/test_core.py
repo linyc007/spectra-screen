@@ -52,6 +52,15 @@ def test_discrete_enforces_separation():
     assert top.issuperset(set(sel.tolist())) or len(top & set(sel.tolist())) >= 2
 
 
+def test_discrete_mi_regression_criterion():
+    X, y, _ = make_spectra()
+    sel, scores = discrete_screen(X, y, k=3, min_separation=5, criterion="mi-regression")
+    assert len(sel) == 3
+    diffs = np.diff(sel)
+    assert (diffs >= 5).all()
+    assert (scores >= 0).all()
+
+
 def test_select_top_k_sorted():
     scores = np.array([0.1, 0.9, 0.5, 0.7])
     sel = select_top_k(scores, k=2)

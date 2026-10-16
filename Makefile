@@ -9,6 +9,10 @@ benchmarks:
 tabpfn:
 	python -u benchmarks/run_tabpfn_tecator.py
 
+# Stability analysis + sample report (KSC forestry + Tecator):
+stability:
+	python -u benchmarks/run_stability.py
+
 test:
 	pytest -q
 

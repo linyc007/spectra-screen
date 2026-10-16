@@ -1,0 +1,158 @@
+{
+  "k": 15,
+  "discrete": {
+    "jaccard_mean": 0.5998155415038314,
+    "consensus_bands": [
+      38,
+      46,
+      54,
+      69,
+      77,
+      92,
+      102,
+      110,
+      118,
+      126,
+      134,
+      142,
+      150,
+      160,
+      169
+    ],
+    "acc_consensus": {
+      "model": "svm",
+      "task": "classification",
+      "n_splits": 5,
+      "n_repeats": 5,
+      "random_state": 42,
+      "metric": "accuracy",
+      "fold_scores_mean": 0.8081935764673034,
+      "fold_scores_std": 0.011648215131462107,
+      "pooled_accuracy": 0.8081914030819141
+    },
+    "freq_top": [
+      {
+        "band": 38,
+        "f": 1.0
+      },
+      {
+        "band": 150,
+        "f": 1.0
+      },
+      {
+        "band": 142,
+        "f": 1.0
+      },
+      {
+        "band": 160,
+        "f": 1.0
+      },
+      {
+        "band": 92,
+        "f": 1.0
+      },
+      {
+        "band": 46,
+        "f": 0.98
+      },
+      {
+        "band": 54,
+        "f": 0.98
+      },
+      {
+        "band": 126,
+        "f": 0.84
+      },
+      {
+        "band": 134,
+        "f": 0.82
+      },
+      {
+        "band": 77,
+        "f": 0.68
+      },
+      {
+        "band": 69,
+        "f": 0.68
+      },
+      {
+        "band": 169,
+        "f": 0.62
+      },
+      {
+        "band": 118,
+        "f": 0.6
+      },
+      {
+        "band": 110,
+        "f": 0.56
+      },
+      {
+        "band": 102,
+        "f": 0.5
+      },
+      {
+        "band": 109,
+        "f": 0.32
+      },
+      {
+        "band": 117,
+        "f": 0.28
+      },
+      {
+        "band": 100,
+        "f": 0.26
+      },
+      {
+        "band": 70,
+        "f": 0.2
+      },
+      {
+        "band": 78,
+        "f": 0.2
+      }
+    ]
+  },
+  "anova_topk": {
+    "jaccard_mean": 1.0,
+    "consensus_bands": [
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47,
+      48,
+      49,
+      50
+    ],
+    "acc_consensus": {
+      "model": "svm",
+      "task": "classification",
+      "n_splits": 5,
+      "n_repeats": 5,
+      "random_state": 42,
+      "metric": "accuracy",
+      "fold_scores_mean": 0.6430639479022098,
+      "fold_scores_std": 0.01349679796293312,
+      "pooled_accuracy": 0.6430656934306569
+    }
+  },
+  "single_shot_acc": {
+    "model": "svm",
+    "task": "classification",
+    "n_splits": 5,
+    "n_repeats": 5,
+    "random_state": 42,
+    "metric": "accuracy",
+    "fold_scores_mean": 0.8081935764673034,
+    "fold_scores_std": 0.011648215131462107,
+    "pooled_accuracy": 0.8081914030819141
+  }
+}

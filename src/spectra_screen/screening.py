@@ -73,8 +73,19 @@ def discrete_screen(X, y, k, min_separation=10, criterion="correlation"):
         scores = np.nan_to_num(scores, nan=0.0)
     elif criterion == "anova":
         scores = anova_f_scores(X, y)
+    elif criterion == "mi-classification":
+        from sklearn.feature_selection import mutual_info_classif
+
+        scores = np.nan_to_num(mutual_info_classif(X, y, random_state=0), nan=0.0)
+    elif criterion == "mi-regression":
+        from sklearn.feature_selection import mutual_info_regression
+
+        scores = np.nan_to_num(mutual_info_regression(X, y, random_state=0), nan=0.0)
     else:
-        raise ValueError(f"unknown criterion '{criterion}' (use 'correlation' or 'anova')")
+        raise ValueError(
+            f"unknown criterion '{criterion}' (use 'correlation', 'anova', "
+            "'mi-classification' or 'mi-regression')"
+        )
 
     accepted = []
     for j in np.argsort(scores)[::-1]:
