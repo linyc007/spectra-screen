@@ -79,14 +79,19 @@ def part_ksc():
     fig, axes = plt.subplots(2, 1, figsize=(10, 4.6), sharex=True)
     for ax, (rep, label, color) in zip(
         axes,
-        [(rep_disc, "discrete (spaced)", "#d62728"), (rep_anova, "ANOVA top-k", "#1f77b4")],
+        [(rep_disc, "spaced discrete selection", "#d62728"), (rep_anova, "naive ANOVA top-k", "#1f77b4")],
     ):
-        ax.bar(np.arange(X.shape[1]), rep["frequency"], width=1.0, color=color)
-        ax.set_ylabel(label, fontsize=9)
-        ax.set_ylim(0, 1)
-        ax.axhline(0.6, color="#888888", ls=":", lw=0.8)
+        ax.bar(np.arange(X.shape[1]), rep["frequency"], width=2.0, color=color, label=label)
+        ax.axhline(0.6, color="#444444", ls=":", lw=1.1, label="0.6 consensus threshold", zorder=5)
+        ax.set_ylabel("selection\nfrequency", fontsize=9)
+        ax.set_ylim(0, 1.32)
+        ax.legend(fontsize=8, loc="upper right", framealpha=0.95)
     axes[1].set_xlabel("AVIRIS band index (KSC, 176 bands)")
-    fig.suptitle("KSC: band selection frequency across 50 CV folds (k=15)", fontsize=11)
+    fig.suptitle(
+        "KSC forestry scene: band selection frequency over 50 CV folds (k=15)\n"
+        "bar height = fraction of folds in which the band was selected",
+        fontsize=11,
+    )
     fig.tight_layout()
     fig.savefig(REPORTS / "ksc_stability_heatmap.png", dpi=150)
     plt.close(fig)
@@ -147,14 +152,19 @@ def part_tecator():
     fig, axes = plt.subplots(2, 1, figsize=(10, 5.0), sharex=True)
     for ax, (rep, label, color) in zip(
         axes,
-        [(rep_disc, "discrete-8 (spaced)", "#d62728"), (rep_vip, "VIP top-8", "#1f77b4")],
+        [(rep_disc, "spaced discrete-8", "#d62728"), (rep_vip, "VIP top-8", "#1f77b4")],
     ):
-        ax.bar(np.arange(X.shape[1]), rep["frequency"], width=1.0, color=color)
-        ax.set_ylabel(label, fontsize=9)
-        ax.set_ylim(0, 1)
-        ax.axhline(0.6, color="#888888", ls=":", lw=0.8)
+        ax.bar(np.arange(X.shape[1]), rep["frequency"], width=2.0, color=color, label=label)
+        ax.axhline(0.6, color="#444444", ls=":", lw=1.1, label="0.6 consensus threshold", zorder=5)
+        ax.set_ylabel("selection\nfrequency", fontsize=9)
+        ax.set_ylim(0, 1.32)
+        ax.legend(fontsize=8, loc="upper right", framealpha=0.95)
     axes[1].set_xlabel("Tecator band index (100 NIR channels, 850-1048 nm)")
-    fig.suptitle("Tecator: selection frequency across 50 CV folds (k=8)", fontsize=11)
+    fig.suptitle(
+        "Tecator: band selection frequency over 50 CV folds (k=8)\n"
+        "bar height = fraction of folds in which the band was selected",
+        fontsize=11,
+    )
     fig.tight_layout()
     fig.savefig(REPORTS / "tecator_stability_heatmap.png", dpi=150)
     plt.close(fig)
