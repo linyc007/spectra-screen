@@ -100,13 +100,17 @@ def discrete_screen(X, y, k, min_separation=10, criterion="correlation"):
     return np.sort(np.array(accepted)), scores
 
 
-def cars(X, y, k, n_iterations=60, mc_fraction=0.8, random_state=42):
+def cars(X, y, k, n_iterations=60, mc_fraction=0.8, random_state=42,
+         strict_k=False):
     """Competitive Adaptive Rewarded Sampling (Li et al., Chemom. Intell. Lab.
     Syst. 2009), deterministic seeded variant.
 
     Each iteration: fit PLS on a Monte Carlo subsample, weight bands by
     |coefficient| x |correlation|, keep an exponentially shrinking share,
     and track CV RMSE of the retained set. The best-performing set wins.
+
+    strict_k=True returns the final-iteration candidate (exactly k bands)
+    instead of the best-RMSE set (which may retain more than k bands).
     """
     from sklearn.cross_decomposition import PLSRegression
     from sklearn.model_selection import cross_val_predict
@@ -143,4 +147,7 @@ def cars(X, y, k, n_iterations=60, mc_fraction=0.8, random_state=42):
             if rmse < best[0]:
                 best = (rmse, candidate.copy())
 
-    return np.sort(best[1])
+    out = best[1]
+    if strict_k and len(out) > k:
+        out = candidate.copy()  # final-iteration candidate has exactly k
+    return np.sort(out)
